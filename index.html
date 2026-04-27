@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>I Have No Enemies - Vinland Saga</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+                        serif: ["Playfair Display", "ui-serif", "Georgia", "serif"],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="relative min-h-screen w-full overflow-hidden bg-[#f9f3e6] text-[#2d241e] font-serif selection:bg-[#2d241e] selection:text-[#f9f3e6] m-0 p-0">
+    
+    <!-- Video Background -->
+    <video id="bg-video" autoplay loop muted playsinline style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" class="transition-opacity duration-[3000ms] ease-in-out opacity-0">
+        <source src="vinland-saga-edit.mp4" type="video/mp4" />
+    </video>
+    
+    <!-- Background Overlays -->
+    <div style="z-index:1;" class="absolute inset-0 pointer-events-none">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#f9f3e6]/10 via-[#f9f3e6]/50 to-[#f9f3e6]/90"></div>
+        <div class="absolute inset-0 border-[20px] md:border-[40px] border-[#2d241e]/5 transition-all duration-1000"></div>
+        <div class="absolute left-1/2 top-0 w-px h-full bg-[#2d241e]/10 hidden md:block"></div>
+    </div>
+
+    <!-- Start Screen -->
+    <div id="start-btn" style="z-index:20;transition:opacity 1s,transform 1s;" class="relative flex min-h-screen w-full flex-col items-center justify-center p-8 text-center group cursor-pointer bg-transparent border-none focus:outline-none">
+        <div class="text-[10px] uppercase tracking-[0.4em] font-sans mb-4 opacity-60">Iceland 1013 AD</div>
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-[#2d241e]/20 flex items-center justify-center transition-all duration-500 group-hover:border-[#2d241e]/60 group-hover:scale-110">
+            <div class="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-[#2d241e]/60 group-hover:border-l-[#2d241e] border-b-[6px] border-b-transparent ml-1 transition-colors duration-500"></div>
+        </div>
+        <span class="mt-6 text-xs uppercase tracking-[0.3em] opacity-50 group-hover:opacity-100 transition-opacity duration-500">Enter the Journey</span>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" style="z-index:10;opacity:0;transform:translateY(30px);transition:opacity 2s ease-out,transform 2s ease-out;" class="absolute inset-0 flex min-h-screen flex-col items-center justify-center px-4 py-8 md:p-8 text-center pointer-events-none">
+        
+        <div id="header-text" style="opacity:0;transition:opacity 1.5s;" class="absolute top-10 left-6 sm:top-12 sm:left-12 text-left hidden sm:block">
+            <p class="text-[10px] uppercase tracking-[0.4em] font-sans mb-1 opacity-60">The Path of Non-Violence</p>
+            <h2 class="text-xl font-light tracking-tight italic opacity-60">Vinland</h2>
+        </div>
+
+        <h1 class="text-5xl sm:text-6xl md:text-8xl lg:text-[100px] leading-none font-black tracking-[-0.04em] text-[#2d241e] opacity-90 select-none px-2 pointer-events-auto">
+            I HAVE NO ENEMIES
+        </h1>
+        <p class="mt-8 text-lg sm:text-xl md:text-2xl text-[#2d241e]/80 max-w-2xl italic tracking-wide font-light px-4 pointer-events-auto">
+            "A true warrior doesn't need a sword."
+        </p>
+
+        <div id="footer-text" style="opacity:0;transition:opacity 1.5s;" class="absolute bottom-8 left-6 right-6 sm:bottom-10 sm:left-12 sm:right-12 hidden md:flex justify-between items-center text-[10px] uppercase tracking-[0.2em] font-sans pointer-events-auto">
+            <div class="flex gap-4 sm:gap-8 opacity-60">
+                <span>About the Journey</span>
+                <span>Philosophies</span>
+            </div>
+            <div class="opacity-60"><span>EST. 2026</span></div>
+        </div>
+    </div>
+
+    <!-- Mute Button -->
+    <button id="mute-btn" style="z-index:50;opacity:0;transition:opacity 1s;" class="invisible absolute bottom-6 right-6 sm:bottom-10 sm:right-10 md:bottom-12 md:right-12 p-3 sm:p-4 rounded-full border border-[#2d241e]/20 text-[#2d241e]/60 hover:text-[#2d241e] hover:border-[#2d241e]/40 bg-[#f9f3e6]/10 hover:bg-[#f9f3e6]/30 backdrop-blur-md cursor-pointer focus:outline-none" aria-label="Toggle mute">
+        <svg id="icon-unmuted" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+        <svg id="icon-muted" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const startBtn   = document.getElementById('start-btn');
+            const video      = document.getElementById('bg-video');
+            const mainContent= document.getElementById('main-content');
+            const headerText = document.getElementById('header-text');
+            const footerText = document.getElementById('footer-text');
+            const muteBtn    = document.getElementById('mute-btn');
+            const iconOn     = document.getElementById('icon-unmuted');
+            const iconOff    = document.getElementById('icon-muted');
+            let isMuted = false;
+
+            startBtn.addEventListener('click', () => {
+                // Fade out start screen
+                startBtn.style.opacity = '0';
+                startBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => { startBtn.style.display = 'none'; }, 1000);
+
+                // Try to play with sound (user gesture allows it)
+                video.muted = false;
+                video.play().catch(() => {
+                    video.muted = true;
+                    isMuted = true;
+                    iconOn.style.display = 'none';
+                    iconOff.style.display = 'block';
+                    video.play();
+                });
+
+                // Fade in video
+                setTimeout(() => { video.style.opacity = '0.4'; }, 100);
+
+                // Fade in main text
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                    mainContent.style.transform = 'translateY(0)';
+                    mainContent.style.pointerEvents = 'auto';
+                }, 500);
+
+                setTimeout(() => { headerText.style.opacity = '1'; }, 2000);
+                setTimeout(() => { footerText.style.opacity  = '1'; }, 2500);
+
+                // Show mute button
+                setTimeout(() => {
+                    muteBtn.classList.remove('invisible');
+                    requestAnimationFrame(() => { muteBtn.style.opacity = '1'; });
+                }, 1500);
+            });
+
+            muteBtn.addEventListener('click', () => {
+                isMuted = !isMuted;
+                video.muted = isMuted;
+                iconOn.style.display  = isMuted ? 'none'  : 'block';
+                iconOff.style.display = isMuted ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
